@@ -1,0 +1,25 @@
+mat-toolbar {
+    display: flex;
+    align-items: center;
+}
+
+
+
+.content {
+    padding: 16px;
+    min-height: 100vh;
+    text-align: center;
+}
+
+.menu-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .menu-button {
+    display: flex;
+    text-align:top;
+    align-items: center;
+    justify-content: center;
+  }

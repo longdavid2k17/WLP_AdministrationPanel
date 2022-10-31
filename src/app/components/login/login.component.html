@@ -1,0 +1,25 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+  <div class="spinner-wrapper" *ngIf="loggedSuccessfully">
+    <mat-spinner 
+    color="primary"
+    mode="indeterminate"
+    diameter="70"></mat-spinner>
+  </div>
+    
+    <mat-card class="box">
+      <mat-card-header>
+        <mat-card-title>Log in</mat-card-title>
+      </mat-card-header>
+      <form class="example-form" *ngIf="!isLogged" name="form" [formGroup]="form" (submit)="onSubmit()">
+        <mat-card-content>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Username" formControlName="username" name="username" required>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Password" formControlName="password" type="password" name="password" required>
+          </mat-form-field>
+        </mat-card-content>
+        <button mat-stroked-button color="primary" class="btn-block">Log in</button>
+      </form>
+    </mat-card>
+  </div>
