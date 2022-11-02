@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {CdkVirtualScrollViewport} from "@angular/cdk/scrolling"
 // Material Form Controls
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -56,6 +58,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ServiceDiscoveryComponent } from './components/service_discovery/service-discovery/service-discovery.component';
 import { ServiceDiscoveryWidgetComponent } from './components/service_discovery/service-discovery-widget/service-discovery-widget.component';
+import { LogManagerComponent } from './components/log-manager/log-manager.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +69,7 @@ import { ServiceDiscoveryWidgetComponent } from './components/service_discovery/
     PageNotFoundComponent,
     ServiceDiscoveryComponent,
     ServiceDiscoveryWidgetComponent,
+    LogManagerComponent,
   ],
   imports: [
     HttpClientModule,
@@ -119,6 +123,7 @@ import { ServiceDiscoveryWidgetComponent } from './components/service_discovery/
       positionClass: 'toast-top-right'
   }),
   FlexLayoutModule,
+  ScrollingModule
   ],
   exports: [
     MatAutocompleteModule,

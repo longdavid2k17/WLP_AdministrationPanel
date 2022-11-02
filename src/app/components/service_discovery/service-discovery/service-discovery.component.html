@@ -42,8 +42,6 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </mat-table>
         </div>
-
-
       </mat-expansion-panel>
 </div>
 
@@ -104,9 +102,19 @@
                 </button>
                 <button
                   mat-icon-button
+                  title="Log files for {{module.moduleName}} are not avalible"
+                  (click)="openLogWindow(module)"
+                  color="primary"
+                  *ngIf="module.status && module.status==='DOWN'"
+                  disabled>
+                    <mat-icon>remove_red_eye</mat-icon>
+                </button>
+                <button
+                  mat-icon-button
                   title="Supervise {{module.moduleName}} logs"
                   (click)="openLogWindow(module)"
-                  color="primary">
+                  color="primary"
+                  *ngIf="module.status && module.status==='RUNNING'">
                     <mat-icon>remove_red_eye</mat-icon>
                 </button>
                 </mat-card-actions>

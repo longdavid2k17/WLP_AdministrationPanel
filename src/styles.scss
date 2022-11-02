@@ -263,3 +263,24 @@ button.toast-close-button {
       height: 6rem;
   }
 }
+
+.cdk-overlay-pane.dialog {
+  position: relative!important;
+}
+.close.mat-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  line-height: 14px;
+  min-width: auto;
+}
+.dialog-content-class {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+.dialog-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

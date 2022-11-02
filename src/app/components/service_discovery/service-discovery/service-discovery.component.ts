@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ServiceDiscoveryService } from 'src/app/services/service-discovery.service';
 import { saveAs } from 'file-saver';
+import { MatDialog } from '@angular/material/dialog';
+import { LogManagerComponent } from '../../log-manager/log-manager.component';
 
 export interface PeriodicElement {
   name: string;
@@ -32,7 +34,8 @@ export class ServiceDiscoveryComponent implements OnInit {
   querriedSuccessfully:boolean = false;
 
   constructor(private serviceDiscoveryService:ServiceDiscoveryService,
-              private toastrService:ToastrService) { }
+              private toastrService:ToastrService,
+              public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.queryServiceDiscovery();
@@ -93,6 +96,13 @@ export class ServiceDiscoveryComponent implements OnInit {
   }
 
   openLogWindow(module:any):void {
-    
+    let dialogRef = this.dialog.open(LogManagerComponent, {
+      height: '500px',
+      width: '800px',
+      data: {
+        module: module.moduleName,
+      },
+      panelClass: 'dialog'
+    });
   }
 }

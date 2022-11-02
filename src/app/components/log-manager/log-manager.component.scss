@@ -1,0 +1,24 @@
+.content{
+    margin-left:auto; 
+    margin-right:auto; 
+    width:100%; 
+    height: 50%; 
+    overflow-y: scroll;
+}
+.log-content {
+    float:left; 
+    font-family: Candara,Trebuchet MS,sans-serif; 
+    font-size: 12px; 
+    font-weight: bold; 
+    border-right: thin dotted #666666; 
+    line-height: 12px;
+    max-height: 185px;
+    resize: none;
+    overflow:auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.spacer {
+    flex-grow: 1;
+  }
