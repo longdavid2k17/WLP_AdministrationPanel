@@ -1,0 +1,25 @@
+<mat-accordion>
+    <mat-expansion-panel *ngFor="let module of wrapper">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{module.moduleName}}
+        </mat-panel-title>
+        <mat-panel-description>
+            Open to see log files for module
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="fileList">
+        <span *ngFor="let item of module.logFiles">
+            <i><b><a (click)="openLog(module.moduleName,item)" *ngIf="selectedItem===item">{{item}}</a></b></i>
+            <i><a (click)="openLog(module.moduleName,item)" *ngIf="selectedItem!=item">{{item}}</a></i>
+            <br/>
+        </span>
+      </div>
+      <div class="content">
+        <p *ngIf="content.length===0">
+            Here will be presented the content of log file
+        </p> 
+        <textarea *ngIf="content.length>0" class="log-content" rows="50" cols="200">{{content}}</textarea>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>

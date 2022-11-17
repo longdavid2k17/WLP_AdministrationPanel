@@ -1,0 +1,53 @@
+<div mat-dialog-title 
+class="dialog-title"
+cdkDrag
+cdkDragRootElement=".cdk-overlay-pane"
+cdkDragBoundary=".cdk-overlay-container" 
+cdkDragHandle>
+    <h1>Account #{{user.id}} ({{user.username}})</h1>
+    <button class="close" mat-button mat-dialog-close>X</button>
+</div>
+<form [formGroup]="form">
+    <div mat-dialog-content class="dialog-content-class">
+        <div class="modal-body">
+            <div style="text-align: right;">
+                <mat-slide-toggle
+                [checked]="editMode"
+                (change)="onEditModeChange($event)">Preview/Edit mode</mat-slide-toggle>
+            </div>
+            <div class="example-container">
+                <mat-form-field appearance="fill">
+                    <mat-label>Name</mat-label>
+                    <input matInput placeholder="Ex. change password" formControlName="name" required *ngIf="editMode">
+                    <input matInput placeholder="Ex. change password" formControlName="name" required *ngIf="!editMode" readonly>
+                  </mat-form-field>
+            </div>
+            <div class="example-container">
+                <mat-form-field appearance="fill">
+                    <mat-label>Surname</mat-label>
+                    <input matInput placeholder="Ex. change password" formControlName="lastName" required *ngIf="editMode">
+                    <input matInput placeholder="Ex. change password" formControlName="lastName" required *ngIf="!editMode" readonly>
+                  </mat-form-field>
+            </div>
+            <div class="example-container">
+                <mat-form-field appearance="fill">
+                    <mat-label>Username</mat-label>
+                    <input matInput placeholder="Username" formControlName="username" required *ngIf="editMode">
+                    <input matInput placeholder="Username" formControlName="username" required *ngIf="!editMode" readonly>
+                  </mat-form-field>
+            </div>
+                <div class="example-container">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Email address</mat-label>
+                        <input matInput placeholder="pat@example.com" formControlName="email" required *ngIf="editMode">
+                        <input matInput placeholder="pat@example.com" formControlName="email" required *ngIf="!editMode" readonly>
+                      </mat-form-field>
+                </div>
+        </div>
+    </div>
+    <div mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close cdkFocusInitial>Dissmiss</button>
+        <button mat-icon-button type="submit" (click)="save()" *ngIf="editMode"><mat-icon>save</mat-icon></button>
+        <button mat-icon-button type="submit" *ngIf="!editMode" disabled><mat-icon>save</mat-icon></button>
+    </div>
+</form>

@@ -1,0 +1,32 @@
+<div mat-dialog-title 
+class="dialog-title"
+cdkDrag
+cdkDragRootElement=".cdk-overlay-pane"
+cdkDragBoundary=".cdk-overlay-container" 
+cdkDragHandle>
+    <h1>Disable account</h1>
+    <button class="close" mat-button mat-dialog-close>X</button>
+</div>
+<form [formGroup]="form">
+<div mat-dialog-content class="dialog-content-class">
+    <div class="modal-body">
+            <div class="example-container">
+                <mat-form-field appearance="fill">
+                    <mat-label>User</mat-label>
+                    <input matInput formControlName="username" required readonly>
+                  </mat-form-field>
+            </div>
+            <div class="example-container">
+                <mat-form-field appearance="fill">
+                    <mat-label>Reason</mat-label>
+                    <textarea #message maxlength="4096" matInput formControlName="deactivationReason" required></textarea>
+                    <mat-hint align="end">This message will be sent to user {{user.emailAddress}} ({{message?.value?.length || 0}}/4096)</mat-hint>
+                  </mat-form-field>
+            </div>
+    </div>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close cdkFocusInitial>Dissmiss</button>
+    <button mat-icon-button type="submit" (click)="send()"><mat-icon>save</mat-icon></button>
+</div>
+</form>

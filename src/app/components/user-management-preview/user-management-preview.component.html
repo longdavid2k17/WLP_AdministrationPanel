@@ -1,0 +1,23 @@
+<div class="widget-spinner-wrapper" *ngIf="!querriedSuccessfully">
+    <mat-spinner
+    color="primary"
+    mode="indeterminate"
+    diameter="70"></mat-spinner><br/>
+    <span style="text-align: center;position:absolute; clear:both;">Getting data for you</span>
+  </div>
+      <table mat-table [dataSource]="summaryDataSource" matSort>
+      <!-- ID Column -->
+      <ng-container matColumnDef="property">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>  </th>
+        <td mat-cell *matCellDef="let row"> {{row.property}} </td>
+      </ng-container>
+  
+      <!-- Progress Column -->
+      <ng-container matColumnDef="value">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+        <td mat-cell *matCellDef="let row"> {{row.value}} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="sumaryDisplayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: sumaryDisplayedColumns;"></tr>
+
+      </table>

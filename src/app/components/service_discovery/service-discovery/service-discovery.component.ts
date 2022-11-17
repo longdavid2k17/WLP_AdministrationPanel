@@ -5,20 +5,6 @@ import { saveAs } from 'file-saver';
 import { MatDialog } from '@angular/material/dialog';
 import { LogManagerComponent } from '../../log-manager/log-manager.component';
 
-export interface PeriodicElement {
-  name: string;
-  port: string;
-  hostAddress: string;
-  moduleVersion: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {port: "8001", name: 'SERVICE_DISCOVERY_MODULE', hostAddress: "192.168.1.100", moduleVersion: '0.0.2-FINAL'},
-  {port: "8091", name: 'MAILING_MODULE', hostAddress: "192.168.1.100", moduleVersion: '0.0.2-FINAL'},
-  {port: "8000", name: 'AUTHORIZATION_MODULE', hostAddress: "192.168.1.100", moduleVersion: '0.0.2-FINAL'},
-  {port: "8002", name: 'RESOURCE_MODULE', hostAddress: "192.168.1.100", moduleVersion: '0.0.1-PREVIEW'},
-];
-
 @Component({
   selector: 'app-service-discovery',
   templateUrl: './service-discovery.component.html',
@@ -26,8 +12,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class ServiceDiscoveryComponent implements OnInit {
 
-  displayedColumns: string[] = ['port', 'name', 'hostAddress', 'moduleVersion'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['servicePort', 'moduleName', 'hostAddress', 'moduleVersion'];
+  dataSource:any[] = [];
 
   modules: any[] = [];
   queryDate:Date = new Date();
@@ -45,6 +31,7 @@ export class ServiceDiscoveryComponent implements OnInit {
     this.querriedSuccessfully = false;
     this.serviceDiscoveryService.getServiceDiscovery().subscribe(res => {
       this.modules = res;
+      this.dataSource = res;
       this.queryDate = new Date();
       this.querriedSuccessfully=true;
     },error => {

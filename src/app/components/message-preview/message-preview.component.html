@@ -1,0 +1,31 @@
+<div mat-dialog-title 
+class="dialog-title"
+cdkDrag
+cdkDragRootElement=".cdk-overlay-pane"
+cdkDragBoundary=".cdk-overlay-container" 
+cdkDragHandle>
+    <h1>{{mode}} {{message?.subject}} </h1>
+    <button class="close" mat-button mat-dialog-close>X</button>
+</div>
+<div mat-dialog-content class="dialog-content-class">
+    <div class="modal-body">
+            <div class="example-container">
+                <mat-form-field appearance="fill">
+                    <mat-label>To</mat-label>
+                    <input matInput readonly value="{{message.from}}">
+                  </mat-form-field>
+            </div>
+            <div class="example-container">
+                <mat-form-field appearance="fill">
+                    <mat-label>Subject</mat-label>
+                    <input matInput readonly value="{{message?.subject ? message.subject : message.topic}}">
+                  </mat-form-field>
+            </div>
+            <div class="example-container" style="border: 1px solid black;">
+                <div [innerHTML]="content"></div>
+            </div>
+    </div>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close cdkFocusInitial>Dissmiss</button>
+</div>

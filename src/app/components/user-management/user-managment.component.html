@@ -1,0 +1,201 @@
+<div class="spinner-wrapper" *ngIf="!querriedSuccessfully">
+    <mat-spinner
+    color="primary"
+    mode="indeterminate"
+    diameter="70"></mat-spinner><br/>
+    <span style="text-align: center;position:absolute; clear:both;">Getting data for you</span>
+  </div>
+  <mat-card>
+    <mat-card-title>Summary</mat-card-title>
+    <mat-card-content>
+      <table mat-table [dataSource]="summaryDataSource" matSort>
+      <!-- ID Column -->
+      <ng-container matColumnDef="property">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>  </th>
+        <td mat-cell *matCellDef="let row"> {{row.property}} </td>
+      </ng-container>
+  
+      <!-- Progress Column -->
+      <ng-container matColumnDef="value">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+        <td mat-cell *matCellDef="let row"> {{row.value}} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="sumaryDisplayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: sumaryDisplayedColumns;"></tr>
+          
+              <!-- Row shown when there is no matching data. -->
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="2" style="text-align: center;">No data matching the filter "{{input.value}}"</td>
+              </tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-title>All users</mat-card-title>
+    <mat-card-content>
+        <mat-form-field appearance="standard">
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilterAll($event)" placeholder="Ex. name" #input>
+          </mat-form-field>
+          
+          <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSourceAll" matSort>
+          
+                <ng-container matColumnDef="menu">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+                    <td mat-cell *matCellDef="let row"> 
+                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                            <mat-icon>more_vert</mat-icon>
+                          </button>
+                        <mat-menu #menu="matMenu" xPosition="after">
+                            <button mat-menu-item
+                            (click)="sendMail(row)">Send email to {{row.username}}</button>
+                            <button mat-menu-item
+                            (click)="previewUser(row)">Preview account</button>
+                            <button mat-menu-item
+                            (click)="manageRoles(row)">Manage roles</button>
+                            <button mat-menu-item
+                            (click)="disableAccount(row)" *ngIf="row.active">Disable account</button>
+                            <button mat-menu-item
+                            (click)="disableAccount(row)" *ngIf="!row.active">Enable account</button>
+                          </mat-menu>
+                        </td>
+                  </ng-container>
+              <!-- ID Column -->
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+              </ng-container>
+          
+              <!-- Progress Column -->
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+              </ng-container>
+          
+              <!-- Name Column -->
+              <ng-container matColumnDef="lastName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Last name </th>
+                <td mat-cell *matCellDef="let row"> {{row.lastName}} </td>
+              </ng-container>
+          
+              <!-- Fruit Column -->
+              <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Email address </th>
+                <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+              </ng-container>
+        
+              <ng-container matColumnDef="username">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Username </th>
+                <td mat-cell *matCellDef="let row"> {{row.username}} </td>
+              </ng-container>
+        
+              <ng-container matColumnDef="active">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Account enabled </th>
+                <td mat-cell *matCellDef="let row"> {{row.active}} </td>
+              </ng-container>
+          
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          
+              <!-- Row shown when there is no matching data. -->
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="7" style="text-align: center;">No data matching the filter "{{input.value}}"</td>
+              </tr>
+            </table>
+          
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+          </div>
+    </mat-card-content>
+    <mat-card-footer align="right" style="margin: 1px;">
+        <button mat-icon-button title="Refresh data"
+        (click)="queryAllUsers()">
+            <mat-icon>refresh</mat-icon>
+        </button>
+    </mat-card-footer>
+  </mat-card>
+  
+  <mat-card>
+    <mat-card-title>Admistrators/Moderators</mat-card-title>
+    <mat-card-content>
+        <mat-form-field appearance="standard">
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilterAdminModers($event)" placeholder="Ex. name" #input>
+          </mat-form-field>
+          
+          <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSourceAdminsModers" matSort>
+          
+                <ng-container matColumnDef="menu">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+                    <td mat-cell *matCellDef="let row"> 
+                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                            <mat-icon>more_vert</mat-icon>
+                          </button>
+                        <mat-menu #menu="matMenu" xPosition="after">
+                            <button mat-menu-item
+                            (click)="sendMail(row)">Send email to {{row.username}}</button>
+                            <button mat-menu-item
+                            (click)="previewUser(row)">Preview account</button>
+                            <button mat-menu-item
+                            (click)="manageRoles(row)">Manage roles</button>
+                            <button mat-menu-item
+                            (click)="disableAccount(row)" *ngIf="row.active">Disable account</button>
+                            <button mat-menu-item
+                            (click)="disableAccount(row)" *ngIf="!row.active">Enable account</button>
+                          </mat-menu>
+                        </td>
+                  </ng-container>
+              <!-- ID Column -->
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+              </ng-container>
+          
+              <!-- Progress Column -->
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+              </ng-container>
+          
+              <!-- Name Column -->
+              <ng-container matColumnDef="lastName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Last name </th>
+                <td mat-cell *matCellDef="let row"> {{row.lastName}} </td>
+              </ng-container>
+          
+              <!-- Fruit Column -->
+              <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Email address </th>
+                <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+              </ng-container>
+        
+              <ng-container matColumnDef="username">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Username </th>
+                <td mat-cell *matCellDef="let row"> {{row.username}} </td>
+              </ng-container>
+        
+              <ng-container matColumnDef="active">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Account enabled </th>
+                <td mat-cell *matCellDef="let row"> {{row.active}} </td>
+              </ng-container>
+          
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          
+              <!-- Row shown when there is no matching data. -->
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="7" style="text-align: center;">No data matching the filter "{{input.value}}"</td>
+              </tr>
+            </table>
+          
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+          </div>
+    </mat-card-content>
+    <mat-card-footer align="right" style="margin: 1px;">
+        <button mat-icon-button title="Refresh data"
+        (click)="queryModersAndAdmins()">
+            <mat-icon>refresh</mat-icon>
+        </button>
+    </mat-card-footer>
+  </mat-card>

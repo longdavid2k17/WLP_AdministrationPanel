@@ -5,3 +5,10 @@
 .content > mat-card {
     margin-bottom: 16px;
 }
+mat-card {
+    max-height: 600px;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}

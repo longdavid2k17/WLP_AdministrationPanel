@@ -1,0 +1,70 @@
+<div mat-dialog-title 
+class="dialog-title"
+cdkDrag
+cdkDragRootElement=".cdk-overlay-pane"
+cdkDragBoundary=".cdk-overlay-container" 
+cdkDragHandle>
+    <h1>Manage roles for {{user?.username}}</h1>
+    <button class="close" mat-button mat-dialog-close>X</button>
+</div>
+<div mat-dialog-content>
+    <!-- <div class="content">
+        <div fxLayout="row wrap" fxLayoutGap="16px grid">
+            <div [fxFlex]="(100/3) + '%'" fxFlex.xs="100%" fxFlex.sm="33%" class="box">
+                <span>Avalible roles</span>
+                <div *ngFor="let item of roles">
+                    <span>{{item.roleName}}</span><br/>
+                </div>
+            </div>
+            <div [fxFlex]="(100/3) + '%'" fxFlex.xs="100%" fxFlex.sm="33%" class="button_box">
+                <span>Actions</span>
+                <button mat-icon-button title="Remove all"><mat-icon>arrow_back</mat-icon></button>
+                <button mat-icon-button title="Remove"><mat-icon>keyboard_arrow_left</mat-icon></button>
+                <button mat-icon-button title="Add"><mat-icon>keyboard_arrow_right</mat-icon></button>
+                <button mat-icon-button title="Add all"><mat-icon>arrow_forward</mat-icon></button>
+            </div>
+            <div [fxFlex]="(100/3) + '%'" fxFlex.xs="100%" fxFlex.sm="33%" class="box">
+                <span>User roles</span>
+                <div *ngFor="let item of user.roles">
+                    <span>{{item.roleName}}</span><br/>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div [fxFlex]="(100/3) + '%'" fxFlex.xs="100%" fxFlex.sm="33%">
+        <h2>Avalible roles</h2>
+        <div
+          cdkDropList
+          #todoList="cdkDropList"
+          [cdkDropListData]="roles"
+          [cdkDropListConnectedTo]="[doneList]"
+          class="example-list"
+          (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let item of roles" cdkDrag>
+            {{item.roleName}}
+        </div>
+        </div>
+      </div>
+      <div [fxFlex]="(100/3) + '%'" fxFlex.xs="100%" fxFlex.sm="33%">
+
+      </div>
+      <div [fxFlex]="(100/3) + '%'" fxFlex.xs="100%" fxFlex.sm="33%">
+        <h2>User roles</h2>
+        <div
+          cdkDropList
+          #doneList="cdkDropList"
+          [cdkDropListData]="user.roles"
+          [cdkDropListConnectedTo]="[todoList]"
+          class="example-list"
+          (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let item of user.roles" cdkDrag>
+            {{item.roleName}}
+        </div>
+        </div>
+      </div>
+</div>
+<div class="spacer"></div>
+<div mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close cdkFocusInitial>Dissmiss</button>
+    <button mat-icon-button type="submit" (click)="save()"><mat-icon>save</mat-icon></button>
+</div>

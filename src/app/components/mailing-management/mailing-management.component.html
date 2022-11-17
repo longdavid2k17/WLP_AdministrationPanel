@@ -1,0 +1,116 @@
+<div class="spinner-wrapper" *ngIf="!querriedSuccessfully">
+    <mat-spinner
+    color="primary"
+    mode="indeterminate"
+    diameter="70"></mat-spinner><br/>
+    <span style="text-align: center;position:absolute; clear:both;">Getting data for you</span>
+  </div>
+<mat-card>
+    <mat-card-title>Inbox messages</mat-card-title>
+    <mat-card-content>
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="inboxDataSource" matSort matSortActive="date" matSortDirection="desc">
+                <ng-container matColumnDef="menu">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+                    <td mat-cell *matCellDef="let row"> 
+                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                            <mat-icon>more_vert</mat-icon>
+                          </button>
+                        <mat-menu #menu="matMenu" xPosition="after">
+                            <button mat-menu-item
+                            (click)="previewMessage(row,'inbox')">Preview message</button>
+                          </mat-menu>
+                        </td>
+                  </ng-container>
+                <!-- ID Column -->
+              <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Recived </th>
+                <td mat-cell *matCellDef="let row"> {{row.date | date:'MMM d, y, HH:mm'}} </td>
+              </ng-container>
+          
+              <!-- Progress Column -->
+              <ng-container matColumnDef="sender">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> From </th>
+                <td mat-cell *matCellDef="let row"> {{row.sender}} </td>
+              </ng-container>
+          
+              <!-- Name Column -->
+              <ng-container matColumnDef="subject">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Subject</th>
+                <td mat-cell *matCellDef="let row"> {{row.subject }} </td>
+              </ng-container>
+          
+              <tr mat-header-row *matHeaderRowDef="inboxDisplayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: inboxDisplayedColumns;"></tr>
+          
+            </table>
+          
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of messages"></mat-paginator>
+          </div>
+    </mat-card-content>
+</mat-card>
+<mat-card>
+    <mat-card-title>Sent messages</mat-card-title>
+    <mat-card-content>
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="sentDataSource" matSort matSortActive="id" matSortDirection="desc">
+                <ng-container matColumnDef="menu">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+                    <td mat-cell *matCellDef="let row"> 
+                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                            <mat-icon>more_vert</mat-icon>
+                          </button>
+                        <mat-menu #menu="matMenu" xPosition="after">
+                            <button mat-menu-item
+                            (click)="previewMessage(row,'sent')">Preview message</button>
+                          </mat-menu>
+                        </td>
+                  </ng-container>
+                <!-- ID Column -->
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+              </ng-container>
+          
+              <!-- Progress Column -->
+              <ng-container matColumnDef="notes">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Additional Notes </th>
+                <td mat-cell *matCellDef="let row"> {{row.notes}} </td>
+              </ng-container>
+          
+              <!-- Name Column -->
+              <ng-container matColumnDef="sendDate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Sent date</th>
+                <td mat-cell *matCellDef="let row"> {{row.sendDate | date:'MMM d, y, HH:mm'}} </td>
+              </ng-container>
+          
+              <!-- Fruit Column -->
+              <ng-container matColumnDef="targetEmailAddress">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> To </th>
+                <td mat-cell *matCellDef="let row"> {{row.targetEmailAddress}} </td>
+              </ng-container>
+        
+              <ng-container matColumnDef="topic">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Subject </th>
+                <td mat-cell *matCellDef="let row"> {{row.topic}} </td>
+              </ng-container>
+        
+              <ng-container matColumnDef="contentType">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Content type </th>
+                <td mat-cell *matCellDef="let row"> {{row.contentType}} </td>
+              </ng-container>
+          
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          
+            </table>
+          
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of messages"></mat-paginator>
+          </div>
+    </mat-card-content>
+</mat-card>
+<mat-card>
+    <mat-card-title>Scheduled mailing</mat-card-title>
+    <mat-card-content>
+    </mat-card-content>
+</mat-card>

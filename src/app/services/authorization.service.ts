@@ -23,4 +23,12 @@ export class AuthorizationService {
   logout(): Observable<any> {
     return this.http.put(this.AUTH_API_URL + '/authorization/log-out', httpOptions);
   }
+
+  disableAccount(userId:any, deactivationReason:any):Observable<any> {
+    return this.http.put(this.AUTH_API_URL + '/authorization/deactivate',
+    {},{
+      params: {
+      userId:userId, deactivationReason:deactivationReason}
+    });
+  }
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
   isLogged:boolean = false;
   loggedSuccessfully:boolean = false;
 
-  constructor(private tokenStorageService:TokenStorageService,
+  constructor(@Inject(DOCUMENT) private document: Document,
+  private tokenStorageService:TokenStorageService,
     private fb: FormBuilder,
     private authService: AuthorizationService,
     private toastr:ToastrService,
@@ -46,7 +48,7 @@ export class LoginComponent implements OnInit {
         this.loggedSuccessfully=true;
         this.toastr.success("You will be redirected soon","Success");
         setTimeout(() =>{
-          this.router.navigate(['/home']);
+          this.document.location.href = '/home';
         },2000);
       },
       err => {
