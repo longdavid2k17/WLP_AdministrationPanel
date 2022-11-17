@@ -1,5 +1,6 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, HostBinding, Inject, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -8,6 +9,7 @@ import { TokenStorageService } from './services/token-storage.service';
 
 const DARK_MODE_CLASS_NAME = 'darkMode';
 const THEME_MODE = 'DARK_MODE';
+const LANGUAGE_NAME = 'language';
 
 @Component({
   selector: 'app-root',
@@ -21,9 +23,12 @@ export class AppComponent implements OnInit{
   
   title = 'wlp_administration_view';
   isLogged:boolean = false;
+  tokenExpirationDate:Date;
   loggedOutSuccessfully:boolean = false;
+  selectedLanguage:any = "english";
 
-  constructor(private overlayContainer: OverlayContainer,
+  constructor(@Inject(DOCUMENT) private document: Document,
+  private overlayContainer: OverlayContainer,
     private tokenStorageService:TokenStorageService,
     private authService:AuthorizationService,
     private toastr:ToastrService,
@@ -41,12 +46,16 @@ export class AppComponent implements OnInit{
       }
     });
     this.loadThemeMode();
+    this.loadLanguage();
     this.initUserState();
   }
 
   initUserState() : void {
     const user = this.tokenStorageService.getUser();
-    if(user && user.username) this.isLogged=true;
+    if(user && user.username) {
+      this.isLogged=true;
+      this.tokenExpirationDate = user.expirationDate;
+    }
   }
 
   logout() : void {
@@ -55,7 +64,7 @@ export class AppComponent implements OnInit{
       setTimeout(() =>{
         this.tokenStorageService.signOut();
         this.loggedOutSuccessfully=false;
-        this.router.navigate(['/login']);
+        this.document.location.href='/login';
       },2000);
     },
     error => {
@@ -80,5 +89,35 @@ export class AppComponent implements OnInit{
       window.sessionStorage.setItem(THEME_MODE, JSON.stringify(true));
     }
     else window.sessionStorage.setItem(THEME_MODE, JSON.stringify(false));
+  }
+
+  changeLanguage(value:string):void{
+    this.selectedLanguage = value;
+    window.sessionStorage.removeItem(LANGUAGE_NAME);
+    window.sessionStorage.setItem(LANGUAGE_NAME, value);
+  }
+
+  loadLanguage():void{
+    if(window.sessionStorage.getItem(LANGUAGE_NAME)!=null){
+      this.selectedLanguage = window.sessionStorage.getItem(LANGUAGE_NAME);
+    } else this.selectedLanguage='english';
+  }
+
+  getLanguageIcon():string{
+    switch(this.selectedLanguage){
+      case 'english':
+      default:
+        return '/assets/flags/united-kingdom.png';
+      case 'polish':
+        return '/assets/flags/poland.png';
+      case 'german':
+        return '/assets/flags/germany.png';
+      case 'spanish':
+        return '/assets/flags/spain.png';
+    }
+  }
+
+  isSelectedLanguage(value:string):boolean{
+    return value===this.selectedLanguage;
   }
 }

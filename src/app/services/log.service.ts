@@ -16,6 +16,12 @@ export class LogService {
 
   constructor(private http: HttpClient) { }
 
+  getWrapper():Observable<any[]> {
+    return this.http.get<any[]>(this.SERVICE_DISCOVERY_API_URL
+      +"/api/log/wrapper",
+      httpOptions);
+  }
+
   listLogFiles(moduleName:any):Observable<any[]> {
     return this.http.get<any[]>(this.SERVICE_DISCOVERY_API_URL
       +"/api/log/get-all?moduleName="+moduleName,

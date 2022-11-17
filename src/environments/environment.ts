@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   AUTH_API_URL: 'http://localhost:8000',
-  SERVICE_DISCOVERY_API_URL: 'http://localhost:8001'
+  SERVICE_DISCOVERY_API_URL: 'http://localhost:8001',
+  MAILING_MODULE_API_URL: 'http://localhost:8091'
 };
 
 /*

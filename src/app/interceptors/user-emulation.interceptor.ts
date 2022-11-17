@@ -15,7 +15,7 @@ export class UserEmulationInterceptor implements HttpInterceptor {
 
   constructor(private tokenStorageService:TokenStorageService) {
     const user = this.tokenStorageService.getUser();
-    this.token = user.accessToken;
+    this.token = user.token;
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

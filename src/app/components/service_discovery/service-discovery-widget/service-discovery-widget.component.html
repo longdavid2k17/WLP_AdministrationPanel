@@ -1,1 +1,33 @@
-<p>service-discovery-widget works!</p>
+<div class="widget-spinner-wrapper" *ngIf="!querriedSuccessfully">
+    <mat-spinner
+    color="primary"
+    mode="indeterminate"
+    diameter="70"></mat-spinner><br/>
+    <span style="text-align: center;position:absolute; clear:both;">Getting data for you</span>
+  </div>
+<table mat-table [dataSource]="dataSource" matSort *ngIf="querriedSuccessfully">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="moduleName">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.moduleName}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="moduleVersion">
+      <th mat-header-cell *matHeaderCellDef> Version </th>
+      <td mat-cell *matCellDef="let element"> {{element.moduleVersion}} </td>
+    </ng-container>
+
+            <!-- Weight Column -->
+    <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Status </th>
+        <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

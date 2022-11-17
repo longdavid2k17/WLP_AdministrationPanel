@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { ReactiveFormsModule} from '@angular/forms';
 import {ScrollingModule} from '@angular/cdk/scrolling';
-import {CdkVirtualScrollViewport} from "@angular/cdk/scrolling"
+import { DragDropModule } from '@angular/cdk/drag-drop';
 // Material Form Controls
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -59,6 +59,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ServiceDiscoveryComponent } from './components/service_discovery/service-discovery/service-discovery.component';
 import { ServiceDiscoveryWidgetComponent } from './components/service_discovery/service-discovery-widget/service-discovery-widget.component';
 import { LogManagerComponent } from './components/log-manager/log-manager.component';
+import { UserManagmentComponent } from './components/user-management/user-managment.component';
+import { UserManagementPreviewComponent } from './components/user-management-preview/user-management-preview.component';
+import { SendMailComponent } from './components/send-mail/send-mail.component';
+import { MailingManagementComponent } from './components/mailing-management/mailing-management.component';
+import { RolesManagmentComponent } from './components/roles-managment/roles-managment.component';
+import { AccountDisableFormComponent } from './components/account-disable-form/account-disable-form.component';
+import { UserPreviewComponent } from './components/user-preview/user-preview.component';
+import { MessagePreviewComponent } from './components/message-preview/message-preview.component';
+import { LogsManagmentComponent } from './components/logs-managment/logs-managment.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +79,15 @@ import { LogManagerComponent } from './components/log-manager/log-manager.compon
     ServiceDiscoveryComponent,
     ServiceDiscoveryWidgetComponent,
     LogManagerComponent,
+    UserManagmentComponent,
+    UserManagementPreviewComponent,
+    SendMailComponent,
+    MailingManagementComponent,
+    RolesManagmentComponent,
+    AccountDisableFormComponent,
+    UserPreviewComponent,
+    MessagePreviewComponent,
+    LogsManagmentComponent,
   ],
   imports: [
     HttpClientModule,
@@ -123,7 +141,8 @@ import { LogManagerComponent } from './components/log-manager/log-manager.compon
       positionClass: 'toast-top-right'
   }),
   FlexLayoutModule,
-  ScrollingModule
+  ScrollingModule,
+  DragDropModule,
   ],
   exports: [
     MatAutocompleteModule,
