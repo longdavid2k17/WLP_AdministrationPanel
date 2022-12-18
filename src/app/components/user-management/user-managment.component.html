@@ -39,8 +39,8 @@
           </mat-form-field>
           
           <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSourceAll" matSort>
-          
+            <div style="overflow-x:auto;">
+              <table mat-table [dataSource]="dataSourceAll" matSort>
                 <ng-container matColumnDef="menu">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
                     <td mat-cell *matCellDef="let row"> 
@@ -102,9 +102,9 @@
               <tr class="mat-row" *matNoDataRow>
                 <td class="mat-cell" colspan="7" style="text-align: center;">No data matching the filter "{{input.value}}"</td>
               </tr>
-            </table>
-          
+            </table> 
             <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+            </div>
           </div>
     </mat-card-content>
     <mat-card-footer align="right" style="margin: 1px;">
@@ -116,7 +116,8 @@
   </mat-card>
   
   <mat-card>
-    <mat-card-title>Admistrators/Moderators</mat-card-title>
+    <div style="overflow-x:auto;">
+      <mat-card-title>Admistrators/Moderators</mat-card-title>
     <mat-card-content>
         <mat-form-field appearance="standard">
             <mat-label>Filter</mat-label>
@@ -124,8 +125,8 @@
           </mat-form-field>
           
           <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSourceAdminsModers" matSort>
-          
+            
+              <table mat-table [dataSource]="dataSourceAdminsModers" matSort>
                 <ng-container matColumnDef="menu">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
                     <td mat-cell *matCellDef="let row"> 
@@ -188,9 +189,8 @@
                 <td class="mat-cell" colspan="7" style="text-align: center;">No data matching the filter "{{input.value}}"</td>
               </tr>
             </table>
-          
             <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
-          </div>
+            </div>
     </mat-card-content>
     <mat-card-footer align="right" style="margin: 1px;">
         <button mat-icon-button title="Refresh data"
@@ -198,4 +198,5 @@
             <mat-icon>refresh</mat-icon>
         </button>
     </mat-card-footer>
+    </div>
   </mat-card>

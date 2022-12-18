@@ -6,6 +6,7 @@
     <span style="text-align: center;position:absolute; clear:both;">Getting data for you</span>
   </div>
 <mat-card>
+  <div style="overflow-x:auto;">
     <mat-card-title>Inbox messages</mat-card-title>
     <mat-card-content>
         <div class="mat-elevation-z8">
@@ -48,8 +49,10 @@
             <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of messages"></mat-paginator>
           </div>
     </mat-card-content>
+  </div>
 </mat-card>
 <mat-card>
+  <div style="overflow-x:auto;">
     <mat-card-title>Sent messages</mat-card-title>
     <mat-card-content>
         <div class="mat-elevation-z8">
@@ -108,6 +111,7 @@
             <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of messages"></mat-paginator>
           </div>
     </mat-card-content>
+  </div>
 </mat-card>
 <mat-card>
     <mat-card-title>Scheduled mailing</mat-card-title>

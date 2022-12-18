@@ -5,6 +5,7 @@ import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthorizationService } from './services/authorization.service';
+import { RabbitMQService } from './services/rabbit-mq.service';
 import { TokenStorageService } from './services/token-storage.service';
 
 const DARK_MODE_CLASS_NAME = 'darkMode';
@@ -32,7 +33,9 @@ export class AppComponent implements OnInit{
     private tokenStorageService:TokenStorageService,
     private authService:AuthorizationService,
     private toastr:ToastrService,
-    private router:Router) { }
+    private router:Router,
+    private rabbitMQService:RabbitMQService
+    ) { }
 
   ngOnInit(): void {
     this.toggleControl.valueChanges.subscribe((darkMode) => {
@@ -48,6 +51,7 @@ export class AppComponent implements OnInit{
     this.loadThemeMode();
     this.loadLanguage();
     this.initUserState();
+    this.rabbitMQService.sendRequest("HomePage");
   }
 
   initUserState() : void {
@@ -101,6 +105,11 @@ export class AppComponent implements OnInit{
     if(window.sessionStorage.getItem(LANGUAGE_NAME)!=null){
       this.selectedLanguage = window.sessionStorage.getItem(LANGUAGE_NAME);
     } else this.selectedLanguage='english';
+  }
+
+  isTokenExpired():boolean{
+    if(this.tokenExpirationDate) return new Date(this.tokenExpirationDate).valueOf() <= new Date().valueOf();
+    return true;
   }
 
   getLanguageIcon():string{

@@ -34,7 +34,7 @@ export class UserService {
 
     editUserData(formValue:any):Observable<any> {
       return this.http.put<any>(this.AUTHORIZATION_API_URL
-        +"/api/user/edit",
+        +"/api/user/management/edit",
         formValue,
         httpOptions);
     }

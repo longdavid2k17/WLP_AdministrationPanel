@@ -24,7 +24,7 @@ export class RoleService {
 
   grantRoles(payload:any):Observable<any> {
     return this.http.post<any[]>(this.AUTHORIZATION_API_URL
-      +"/authorization/grant-roles",
+      +"/api/user/management/grant-roles",
       payload,
       httpOptions);
   }

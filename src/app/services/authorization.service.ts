@@ -25,7 +25,7 @@ export class AuthorizationService {
   }
 
   disableAccount(userId:any, deactivationReason:any):Observable<any> {
-    return this.http.put(this.AUTH_API_URL + '/authorization/deactivate',
+    return this.http.put(this.AUTH_API_URL + '/api/user/management/deactivate',
     {},{
       params: {
       userId:userId, deactivationReason:deactivationReason}
